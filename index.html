@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aero | Premium Tech & Lifestyle Store</title>
+  <!-- Google Fonts - Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Custom CSS stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  
+  <!-- Canvas for Confetti Success Animation -->
+  <canvas id="confetti-canvas"></canvas>
+
+  <!-- Navigation Header -->
+  <header class="app-header">
+    <div class="header-container">
+      <div class="header-left">
+        <a href="#" class="logo">
+          <span class="logo-accent">A</span>ero
+        </a>
+      </div>
+      
+      <div class="header-center">
+        <div class="search-bar-wrapper">
+          <i class="fa-solid fa-magnifying-glass search-icon"></i>
+          <input type="text" id="global-search" placeholder="Search premium tech...">
+          <select id="search-category-filter">
+            <option value="all">All Categories</option>
+            <option value="smartphones">Smartphones</option>
+            <option value="laptops">Laptops</option>
+            <option value="audio">Audio</option>
+            <option value="wearables">Wearables</option>
+          </select>
+        </div>
+      </div>
+      
+      <div class="header-right">
+        <!-- Theme Toggle -->
+        <button id="theme-toggle" class="icon-btn" aria-label="Toggle theme">
+          <i class="fa-solid fa-moon"></i>
+        </button>
+        
+        <!-- Wishlist Button -->
+        <button id="wishlist-btn" class="icon-btn" aria-label="View wishlist">
+          <i class="fa-regular fa-heart"></i>
+          <span class="badge" id="wishlist-count">0</span>
+        </button>
+        
+        <!-- Cart Trigger -->
+        <button id="cart-btn" class="icon-btn cart-trigger" aria-label="Open cart">
+          <i class="fa-solid fa-bag-shopping"></i>
+          <span class="badge" id="cart-count">0</span>
+        </button>
+
+        <!-- User Profile Dropdown -->
+        <div class="profile-dropdown">
+          <button class="profile-trigger" id="profile-btn">
+            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=256&auto=format&fit=crop" alt="User Avatar" class="avatar">
+          </button>
+          <div class="dropdown-menu" id="profile-menu">
+            <div class="dropdown-header">
+              <p class="user-name">Alex Carter</p>
+              <p class="user-email">alex.carter@aero.com</p>
+            </div>
+            <hr>
+            <a href="#"><i class="fa-regular fa-user"></i> My Profile</a>
+            <a href="#"><i class="fa-solid fa-box"></i> My Orders</a>
+            <a href="#"><i class="fa-solid fa-sliders"></i> Settings</a>
+            <hr>
+            <a href="#" class="logout-link"><i class="fa-solid fa-arrow-right-from-bracket"></i> Logout</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Sticky Categories Sub-nav -->
+  <nav class="sub-nav">
+    <div class="sub-nav-container">
+      <button class="category-pill active" data-category="all">All Tech</button>
+      <button class="category-pill" data-category="smartphones"><i class="fa-solid fa-mobile-screen"></i> Smartphones</button>
+      <button class="category-pill" data-category="laptops"><i class="fa-solid fa-laptop"></i> Laptops</button>
+      <button class="category-pill" data-category="audio"><i class="fa-solid fa-headphones"></i> Audio</button>
+      <button class="category-pill" data-category="wearables"><i class="fa-solid fa-clock"></i> Wearables</button>
+    </div>
+  </nav>
+
+  <!-- Main Content Wrapper -->
+  <main class="main-content">
+    
+    <!-- Hero Slider/Promo Section -->
+    <section class="hero-section">
+      <div class="hero-banner" style="background-image: linear-gradient(to right, rgba(11, 15, 25, 0.9) 30%, rgba(11, 15, 25, 0.4) 100%), url('assets/hero.png');">
+        <div class="hero-content">
+          <span class="hero-tag">Summer Release</span>
+          <h1 class="hero-title">Experience the <br><span class="gradient-text">Future of Audio</span></h1>
+          <p class="hero-subtitle">Immerse yourself in precision acoustics with the brand-new AeroPods Max. Active Noise Cancellation, personalized Spatial Audio, and 20 hours of high-fidelity listening.</p>
+          <div class="hero-cta-group">
+            <button class="btn btn-primary" onclick="quickViewProduct(3)">
+              Explore AeroPods <i class="fa-solid fa-arrow-right"></i>
+            </button>
+            <button class="btn btn-secondary" onclick="scrollToCatalog()">
+              Shop Collection
+            </button>
+          </div>
+        </div>
+        <div class="hero-badge-container">
+          <div class="floating-badge">
+            <i class="fa-solid fa-bolt"></i>
+            <div>
+              <strong>Limited Offer</strong>
+              <p>Save 10% on Checkout</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Trust Badges & Features Row -->
+    <section class="features-bar">
+      <div class="feature-item">
+        <div class="feature-icon-wrapper">
+          <i class="fa-solid fa-truck-fast"></i>
+        </div>
+        <div class="feature-text">
+          <h3>Free Express Shipping</h3>
+          <p>On all orders above $150</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon-wrapper">
+          <i class="fa-solid fa-shield-halved"></i>
+        </div>
+        <div class="feature-text">
+          <h3>2-Year Protection</h3>
+          <p>Official warranty included</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon-wrapper">
+          <i class="fa-solid fa-rotate-left"></i>
+        </div>
+        <div class="feature-text">
+          <h3>30-Day Returns</h3>
+          <p>Hassle-free dynamic refunds</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon-wrapper">
+          <i class="fa-solid fa-headset"></i>
+        </div>
+        <div class="feature-text">
+          <h3>24/7 Tech Concierge</h3>
+          <p>Expert assistance anytime</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Catalog Section with Filters and Grid -->
+    <section class="catalog-section" id="catalog-anchor">
+      <div class="catalog-header">
+        <div class="catalog-title-wrapper">
+          <h2 class="section-title">Discover Aero Collection</h2>
+          <p class="section-subtitle">Exquisite design. Uncompromised performance.</p>
+        </div>
+        
+        <div class="catalog-controls">
+          <span class="items-count" id="items-found-text">Showing 6 products</span>
+          <div class="sort-dropdown-wrapper">
+            <label for="catalog-sort">Sort By:</label>
+            <select id="catalog-sort">
+              <option value="popularity">Popularity</option>
+              <option value="price-asc">Price: Low to High</option>
+              <option value="price-desc">Price: High to Low</option>
+              <option value="rating">Top Rated</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Layout: Filters + Product Grid -->
+      <div class="catalog-layout">
+        
+        <!-- Filters Sidebar -->
+        <aside class="filters-sidebar" id="filters-sidebar">
+          <div class="sidebar-block">
+            <h3 class="filter-group-title">Price Range</h3>
+            <div class="price-slider-container">
+              <input type="range" id="price-slider" min="100" max="2500" value="2500" step="50">
+              <div class="price-slider-values">
+                <span>$100</span>
+                <span id="price-slider-val" class="highlight-val">$2500</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="sidebar-block">
+            <h3 class="filter-group-title">Minimum Rating</h3>
+            <div class="rating-filter-options">
+              <label class="rating-label">
+                <input type="radio" name="rating-filter" value="all" checked>
+                <span>All Ratings</span>
+              </label>
+              <label class="rating-label">
+                <input type="radio" name="rating-filter" value="4.8">
+                <span class="stars-gold"><i class="fa-solid fa-star"></i> 4.8 & above</span>
+              </label>
+              <label class="rating-label">
+                <input type="radio" name="rating-filter" value="4.7">
+                <span class="stars-gold"><i class="fa-solid fa-star"></i> 4.7 & above</span>
+              </label>
+              <label class="rating-label">
+                <input type="radio" name="rating-filter" value="4.5">
+                <span class="stars-gold"><i class="fa-solid fa-star"></i> 4.5 & above</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="sidebar-block">
+            <h3 class="filter-group-title">Availablity</h3>
+            <label class="checkbox-container">
+              <input type="checkbox" id="in-stock-only">
+              <span class="checkmark"></span>
+              In Stock Only
+            </label>
+          </div>
+
+          <button id="clear-filters-btn" class="btn btn-tertiary w-100">
+            <i class="fa-solid fa-arrow-rotate-left"></i> Reset Filters
+          </button>
+        </aside>
+
+        <!-- Product Grid -->
+        <div class="products-grid-container">
+          <!-- Active filter pills -->
+          <div class="active-filters-row" id="active-filters-row" style="display: none;">
+            <!-- Rendered dynamically -->
+          </div>
+          
+          <!-- Product cards grid -->
+          <div class="products-grid" id="products-grid">
+            <!-- Rendered dynamically from app.js -->
+          </div>
+
+          <!-- Empty State -->
+          <div class="empty-state" id="empty-state-view" style="display: none;">
+            <i class="fa-solid fa-laptop-slash empty-icon"></i>
+            <h3>No Products Match Filters</h3>
+            <p>Try resetting the price, category, or search term to see more items.</p>
+            <button class="btn btn-primary btn-sm" onclick="resetAllFilters()">Reset Filters</button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Shopping Cart Slide-out Drawer -->
+  <div class="cart-drawer-overlay" id="cart-drawer-overlay"></div>
+  <aside class="cart-drawer" id="cart-drawer">
+    <div class="cart-drawer-header">
+      <h2>Your Cart <span id="cart-header-count">(0)</span></h2>
+      <button class="close-btn" id="cart-close-btn" aria-label="Close cart">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+    
+    <!-- Cart Items Scrollable Content -->
+    <div class="cart-drawer-items" id="cart-items-container">
+      <!-- Dynamic list of items -->
+    </div>
+
+    <!-- Cart Footer Summary -->
+    <div class="cart-drawer-footer">
+      <div class="promo-code-section">
+        <div class="promo-input-group">
+          <input type="text" id="promo-code-input" placeholder="Enter promo code (e.g. AERO20)">
+          <button id="apply-promo-btn" class="btn btn-secondary btn-sm">Apply</button>
+        </div>
+        <p class="promo-feedback" id="promo-feedback"></p>
+      </div>
+
+      <div class="cart-summary-totals">
+        <div class="summary-row">
+          <span>Subtotal</span>
+          <span id="summary-subtotal">$0.00</span>
+        </div>
+        <div class="summary-row discount-row" id="summary-discount-row" style="display: none;">
+          <span>Discount (<span id="promo-discount-percent">0%</span>)</span>
+          <span id="summary-discount">-$0.00</span>
+        </div>
+        <div class="summary-row">
+          <span>Estimated Shipping</span>
+          <span id="summary-shipping">Free</span>
+        </div>
+        <hr class="summary-hr">
+        <div class="summary-row total-row">
+          <span>Total</span>
+          <span id="summary-total">$0.00</span>
+        </div>
+      </div>
+      
+      <button class="btn btn-primary w-100 checkout-btn" id="proceed-to-checkout-btn">
+        Proceed to Checkout <i class="fa-solid fa-arrow-right"></i>
+      </button>
+    </div>
+  </aside>
+
+  <!-- Product Quick View Modal -->
+  <div class="modal-overlay" id="product-modal-overlay">
+    <div class="product-modal">
+      <button class="modal-close" id="product-modal-close" aria-label="Close modal">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      <div class="product-modal-content" id="product-modal-content">
+        <!-- Rendered dynamically from app.js -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Multi-Step Checkout Modal -->
+  <div class="modal-overlay" id="checkout-modal-overlay">
+    <div class="checkout-modal">
+      <button class="modal-close" id="checkout-modal-close" aria-label="Close checkout">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      
+      <!-- Stepper Progress Bar -->
+      <div class="checkout-stepper">
+        <div class="step-indicator active" id="step-ind-1">
+          <div class="step-num">1</div>
+          <span class="step-label">Shipping</span>
+        </div>
+        <div class="step-line" id="step-line-1"></div>
+        <div class="step-indicator" id="step-ind-2">
+          <div class="step-num">2</div>
+          <span class="step-label">Payment</span>
+        </div>
+        <div class="step-line" id="step-line-2"></div>
+        <div class="step-indicator" id="step-ind-3">
+          <div class="step-num">3</div>
+          <span class="step-label">Review</span>
+        </div>
+      </div>
+
+      <div class="checkout-content">
+        <!-- STEP 1: Shipping Info Form -->
+        <form class="checkout-step-form active" id="checkout-step-1-form">
+          <h2 class="checkout-step-title">Shipping Information</h2>
+          <div class="form-grid">
+            <div class="form-group col-6">
+              <label for="shipping-firstname">First Name *</label>
+              <input type="text" id="shipping-firstname" required placeholder="John">
+            </div>
+            <div class="form-group col-6">
+              <label for="shipping-lastname">Last Name *</label>
+              <input type="text" id="shipping-lastname" required placeholder="Doe">
+            </div>
+            <div class="form-group col-12">
+              <label for="shipping-email">Email Address *</label>
+              <input type="email" id="shipping-email" required placeholder="johndoe@example.com">
+            </div>
+            <div class="form-group col-12">
+              <label for="shipping-address">Street Address *</label>
+              <input type="text" id="shipping-address" required placeholder="123 Science Park Drive">
+            </div>
+            <div class="form-group col-6">
+              <label for="shipping-city">City *</label>
+              <input type="text" id="shipping-city" required placeholder="San Francisco">
+            </div>
+            <div class="form-group col-3">
+              <label for="shipping-state">State *</label>
+              <input type="text" id="shipping-state" required placeholder="CA">
+            </div>
+            <div class="form-group col-3">
+              <label for="shipping-zip">Zip Code *</label>
+              <input type="text" id="shipping-zip" required placeholder="94107">
+            </div>
+          </div>
+          <div class="checkout-footer-buttons">
+            <div></div> <!-- empty placeholder -->
+            <button type="button" class="btn btn-primary" onclick="goToStep(2)">
+              Next: Payment Details <i class="fa-solid fa-arrow-right"></i>
+            </button>
+          </div>
+        </form>
+
+        <!-- STEP 2: Payment Details Form -->
+        <form class="checkout-step-form" id="checkout-step-2-form">
+          <h2 class="checkout-step-title">Payment Method</h2>
+          
+          <div class="payment-method-selectors">
+            <label class="payment-selector active">
+              <input type="radio" name="payment-method" value="credit-card" checked>
+              <i class="fa-solid fa-credit-card"></i>
+              <span>Credit Card</span>
+            </label>
+            <label class="payment-selector">
+              <input type="radio" name="payment-method" value="paypal">
+              <i class="fa-brands fa-paypal"></i>
+              <span>PayPal</span>
+            </label>
+          </div>
+
+          <div class="form-grid" id="credit-card-fields">
+            <div class="form-group col-12">
+              <label for="card-name">Cardholder Name *</label>
+              <input type="text" id="card-name" placeholder="John Doe">
+            </div>
+            <div class="form-group col-12">
+              <label for="card-number">Card Number *</label>
+              <div class="card-input-wrapper">
+                <input type="text" id="card-number" placeholder="4111 2222 3333 4444" maxlength="19">
+                <i class="fa-brands fa-cc-visa card-brand-icon" id="card-brand-icon"></i>
+              </div>
+            </div>
+            <div class="form-group col-6">
+              <label for="card-expiry">Expiry Date *</label>
+              <input type="text" id="card-expiry" placeholder="MM/YY" maxlength="5">
+            </div>
+            <div class="form-group col-6">
+              <label for="card-cvv">CVV *</label>
+              <input type="password" id="card-cvv" placeholder="•••" maxlength="4">
+            </div>
+          </div>
+          
+          <div class="checkout-footer-buttons">
+            <button type="button" class="btn btn-secondary" onclick="goToStep(1)">
+              <i class="fa-solid fa-arrow-left"></i> Back to Shipping
+            </button>
+            <button type="button" class="btn btn-primary" onclick="goToStep(3)">
+              Next: Review Order <i class="fa-solid fa-arrow-right"></i>
+            </button>
+          </div>
+        </form>
+
+        <!-- STEP 3: Order Review -->
+        <div class="checkout-step-form" id="checkout-step-3-form">
+          <h2 class="checkout-step-title">Review & Confirm Order</h2>
+          <div class="review-grid">
+            <div class="review-col">
+              <h3>Shipping To:</h3>
+              <p id="review-shipping-name">John Doe</p>
+              <p id="review-shipping-addr">123 Science Park Drive, San Francisco, CA 94107</p>
+              <p id="review-shipping-email">johndoe@example.com</p>
+              
+              <h3 style="margin-top: 1.5rem;">Payment Info:</h3>
+              <p id="review-payment-type"><i class="fa-solid fa-credit-card"></i> Visa ending in 4444</p>
+            </div>
+            
+            <div class="review-col border-left-desktop">
+              <h3>Order Summary:</h3>
+              <div class="review-items-list" id="review-items-container">
+                <!-- Rendered dynamically -->
+              </div>
+              <hr class="summary-hr">
+              <div class="cart-summary-totals" style="padding: 0;">
+                <div class="summary-row">
+                  <span>Subtotal</span>
+                  <span id="review-subtotal">$0.00</span>
+                </div>
+                <div class="summary-row discount-row" id="review-discount-row" style="display: none;">
+                  <span>Discount</span>
+                  <span id="review-discount">-$0.00</span>
+                </div>
+                <div class="summary-row">
+                  <span>Shipping</span>
+                  <span>Free</span>
+                </div>
+                <div class="summary-row total-row" style="font-size: 1.15rem;">
+                  <span>Grand Total</span>
+                  <span id="review-total">$0.00</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="checkout-footer-buttons">
+            <button type="button" class="btn btn-secondary" onclick="goToStep(2)">
+              <i class="fa-solid fa-arrow-left"></i> Back to Payment
+            </button>
+            <button type="button" class="btn btn-primary checkout-pay-btn" id="checkout-place-order-btn">
+              Place Order & Pay <i class="fa-solid fa-lock"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- STEP 4: Success Screen -->
+        <div class="checkout-step-form success-screen" id="checkout-success-view">
+          <div class="success-icon-wrapper animate-bounce">
+            <i class="fa-solid fa-circle-check"></i>
+          </div>
+          <h2>Order Placed Successfully!</h2>
+          <p class="success-desc">Thank you for your order. We have sent a confirmation email to <strong id="success-email">john@example.com</strong>. Your tracking number is <code id="tracking-num">#AERO-82910</code>.</p>
+          <div class="success-buttons">
+            <button class="btn btn-primary" onclick="closeCheckoutAndReset()">Continue Shopping</button>
+            <button class="btn btn-secondary" id="download-invoice-btn"><i class="fa-solid fa-download"></i> Get Invoice PDF</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Stack -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- Footer Section -->
+  <footer class="app-footer-bar">
+    <div class="footer-grid">
+      <div class="footer-col-about">
+        <a href="#" class="logo footer-logo"><span class="logo-accent">A</span>ero</a>
+        <p class="about-text">Aero is an ultra-premium tech showcase bringing you future-proof electronic components, accessories, and audio gadgets. Merging absolute quality with timeless design aesthetics.</p>
+        <div class="social-links">
+          <a href="#" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+          <a href="#" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+        </div>
+      </div>
+      
+      <div class="footer-col-links">
+        <h3>Products</h3>
+        <ul>
+          <li><a href="#" onclick="filterByCategory('smartphones')">Smartphones</a></li>
+          <li><a href="#" onclick="filterByCategory('laptops')">Laptops</a></li>
+          <li><a href="#" onclick="filterByCategory('audio')">Audio Gadgets</a></li>
+          <li><a href="#" onclick="filterByCategory('wearables')">Wearable Tech</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col-links">
+        <h3>Support & Info</h3>
+        <ul>
+          <li><a href="#">Help Center</a></li>
+          <li><a href="#">Shipping Rates</a></li>
+          <li><a href="#">Return & Refund Policy</a></li>
+          <li><a href="#">Warranty Registry</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col-newsletter">
+        <h3>Subscribe to Aero News</h3>
+        <p>Get exclusive early access notifications, release drops, and special seasonal coupon codes.</p>
+        <form class="newsletter-form" onsubmit="event.preventDefault(); alert('Subscribed successfully!'); this.reset();">
+          <input type="email" placeholder="Enter your email address" required>
+          <button type="submit" class="btn btn-primary btn-sm">Join</button>
+        </form>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <p>&copy; 2026 Aero Inc. Designed for premium aesthetics and performance. All rights reserved.</p>
+      <div class="footer-bottom-links">
+        <a href="#">Privacy Policy</a>
+        <span>•</span>
+        <a href="#">Terms of Service</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Include App Scripts -->
+  <script src="products.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
